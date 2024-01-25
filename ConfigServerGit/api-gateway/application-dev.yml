@@ -1,3 +1,6 @@
+spring:
+  application:
+    name: api-gateway
 eureka:
   instance:
     prefer-ip-address: true
