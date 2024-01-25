@@ -1,0 +1,22 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-cloud-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/LeandroRogalaBritez/ConfigServerGit
+          default-label: main
+          search-paths:
+          - 'cambio-service*'
+          - 'book-service*'
+          - 'api-gateway*'
+          - 'eureka-server*'
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'

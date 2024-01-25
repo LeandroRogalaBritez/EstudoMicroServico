@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: book-service
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      fail-on-empty-beans: false
+  sleuth:
+    sampler:
+      probability: 1.0
+springdoc:
+  api-docs:
+    path: book-service/v3/api-docs
