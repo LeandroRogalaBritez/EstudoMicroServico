@@ -2,6 +2,9 @@ package br.com.leandrorogala.cambio.service.controller;
 
 import br.com.leandrorogala.cambio.service.model.Cambio;
 import br.com.leandrorogala.cambio.service.repository.CambioRepository;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -20,17 +23,17 @@ import java.math.RoundingMode;
 @RestController
 @RequestMapping("cambio-service")
 public class CambioController {
-	
 	private Logger logger = LoggerFactory.getLogger(CambioController.class);
-	
 	@Autowired
 	private Environment environment;
-	
 	@Autowired
 	private CambioRepository repository;
 	
 	@Operation(description = "Get cambio from currency!")
 	@GetMapping(value = "/{amount}/{from}/{to}")
+	@Retry(name = "default")
+	@RateLimiter(name = "default")
+	@Bulkhead(name = "default")
 	public Cambio getCambio(
 			@PathVariable("amount") BigDecimal amount,
 			@PathVariable("from") String from,

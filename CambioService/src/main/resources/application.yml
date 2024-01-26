@@ -33,3 +33,19 @@ spring:
 springdoc:
   api-docs:
     path: cambio-service/v3/api-docs
+resilience4j:
+  bulkhead:
+    instances:
+      default:
+        max-concurrent-calls: 10
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+  retry:
+    instances:
+      default:
+        max-attempts: 2
+        wait-duration: 1s
+        enable-exponential-backoff: true
