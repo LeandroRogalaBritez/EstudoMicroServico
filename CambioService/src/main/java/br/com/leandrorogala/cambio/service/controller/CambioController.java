@@ -1,7 +1,7 @@
 package br.com.leandrorogala.cambio.service.controller;
 
-import br.com.erudio.model.Cambio;
-import br.com.erudio.repository.CambioRepository;
+import br.com.leandrorogala.cambio.service.model.Cambio;
+import br.com.leandrorogala.cambio.service.repository.CambioRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;

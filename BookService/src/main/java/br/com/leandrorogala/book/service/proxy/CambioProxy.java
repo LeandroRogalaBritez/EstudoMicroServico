@@ -1,6 +1,6 @@
 package br.com.leandrorogala.book.service.proxy;
 
-import br.com.erudio.response.Cambio;
+import br.com.leandrorogala.book.service.response.Cambio;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
