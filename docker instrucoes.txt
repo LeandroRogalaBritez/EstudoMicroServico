@@ -1,0 +1,7 @@
+Gerar pacote do projeto:
+
+mvn clean package -DskipTests
+docker build -t eureka-server:0.0.1-SNAPSHOT .
+docker tag eureka-server:0.0.1-SNAPSHOT leandrorogala/eureka-server:0.0.1-SNAPSHOT
+docker push leandorrogala/eureka-server:0.0.1-SNAPSHOT
+docker run -p 8761:8761 leandorrogala/eureka-server:0.0.1-SNAPSHOT

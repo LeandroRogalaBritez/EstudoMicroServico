@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  eureka-server:
+    image: leandrorogala/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+    networks:
+      - leandro-network
+networks:
+  leandro-network:
+    driver: bridge
