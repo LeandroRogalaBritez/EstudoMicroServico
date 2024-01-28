@@ -60,6 +60,30 @@ services:
       SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
     networks:
       - leandro-network
+  cambio-service:
+    image: leandrorogala/cambio-service
+    restart: always
+    build:
+      context: .
+      dockerfile: CambioService/Dockerfile
+    environment:
+      TZ: America/Sao_Paulo
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
+      SPRING.DATASOURCE.URL: jdbc:mysql://cambio-db:3308/cambio_service?useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: admin123
+      SPRING.FLYWAY.URL: jdbc:mysql://cambio-db:3308/cambio_service?useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+      SPRING.FLYWAY.USER: root
+      SPRING.FLYWAY.PASSWORD: admin123
+    ports:
+      - 8000:8000
+    depends_on:
+      - eureka-server
+      - cambio-db
+      - api-gateway
+    networks:
+      - leandro-network
 networks:
   leandro-network:
     driver: bridge
