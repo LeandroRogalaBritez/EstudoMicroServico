@@ -5,6 +5,19 @@ services:
     image: openzipkin/zipkin:2.23.2
     ports:
       - 9411:9411
+    restart: always
+    depends_on:
+      - rabbit-mq
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+    networks:
+      - leandro-network
+
+  rabbit-mq:
+    image: rabbitmq:3.8.14-management
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - leandro-network
 
@@ -26,7 +39,7 @@ services:
       - 3308
     networks:
       - leandro-network
-  
+
   book-db:
     image: mysql:5.7.22
     command: --default-authentication-plugin=mysql_native_password
@@ -59,9 +72,13 @@ services:
       - 8765:8765
     depends_on:
       - eureka-server
+      - rabbit-mq
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     networks:
       - leandro-network
 
@@ -81,14 +98,18 @@ services:
       SPRING.FLYWAY.URL: jdbc:mysql://cambio-db:3308/cambio_service?useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
       SPRING.FLYWAY.USER: root
       SPRING.FLYWAY.PASSWORD: admin123
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     ports:
       - 8000:8000
     depends_on:
       - eureka-server
       - cambio-db
+      - rabbit-mq
     networks:
       - leandro-network
-  
+
   book-service:
     image: leandrorogala/book-service
     restart: always
@@ -105,11 +126,15 @@ services:
       SPRING.FLYWAY.URL: jdbc:mysql://book-db:3310/book_service?useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
       SPRING.FLYWAY.USER: root
       SPRING.FLYWAY.PASSWORD: admin123
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
+      SPRING_RABBITMQ_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     ports:
       - 8100:8100
     depends_on:
       - eureka-server
       - book-db
+      - rabbit-mq
     networks:
       - leandro-network
 networks:
