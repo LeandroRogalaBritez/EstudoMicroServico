@@ -129,6 +129,7 @@ services:
       RABBIT_URI: amqp://guest:guest@rabbit-mq:5672
       SPRING_RABBITMQ_HOST: rabbit-mq
       SPRING_ZIPKIN_SENDER_TYPE: rabbit
+      CAMBIO_SERVICE_URL: http://api-gateway:8765
     ports:
       - 8100:8100
     depends_on:
