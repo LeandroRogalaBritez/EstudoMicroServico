@@ -31,11 +31,11 @@ jobs:
 
       - name: Build Cambio Microservice Jar
         working-directory: ./CambioService
-        run: clean package -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Build Book Microservice Jar
         working-directory: ./BookService
-        run: clean package -DskipTests
+        run: mvn clean package -DskipTests
         
       - name: Docker Compose Build
         working-directory: .
