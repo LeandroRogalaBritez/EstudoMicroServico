@@ -60,14 +60,14 @@ services:
       - leandro-network
 
   eureka-server:
-    image: leandrorogala/eureka-server:0.0.1-SNAPSHOT
+    image: leandrorogala/eureka-server
     ports:
       - 8761:8761
     networks:
       - leandro-network
 
   api-gateway:
-    image: leandrorogala/api-gateway:0.0.1-SNAPSHOT
+    image: leandrorogala/api-gateway
     ports:
       - 8765:8765
     depends_on:
