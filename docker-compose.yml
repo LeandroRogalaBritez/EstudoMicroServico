@@ -85,9 +85,6 @@ services:
   cambio-service:
     image: leandrorogala/cambio-service
     restart: always
-    build:
-      context: .
-      dockerfile: CambioService/Dockerfile
     environment:
       TZ: America/Sao_Paulo
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
@@ -113,9 +110,6 @@ services:
   book-service:
     image: leandrorogala/book-service
     restart: always
-    build:
-      context: .
-      dockerfile: BookService/Dockerfile
     environment:
       TZ: America/Sao_Paulo
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
